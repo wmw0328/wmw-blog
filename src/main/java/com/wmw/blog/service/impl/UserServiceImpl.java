@@ -1,7 +1,10 @@
 package com.wmw.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -9,6 +12,7 @@ import com.wmw.blog.common.domain.PageList;
 import com.wmw.blog.entity.User;
 import com.wmw.blog.mapper.UserMapper;
 import com.wmw.blog.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +42,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         PageInfo<User> page = new PageInfo<>(userList);
         return new PageList<>(page.getTotal(),page.getPageNum(),page.getPageSize(),userList);
 
+    }
+
+    @Override
+    public boolean saveUser(User user) {
+        QueryWrapper<User> wrapper = new QueryWrapper();
+        wrapper.eq("user_name",user.getUserName());
+        if(userMapper.selectCount(wrapper) > 0){
+            return false;
+        }
+        userMapper.insert(user);
+        return true;
     }
 }

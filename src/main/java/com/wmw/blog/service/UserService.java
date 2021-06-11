@@ -26,4 +26,14 @@ public interface UserService extends IService<User> {
      */
     PageList<User> getUserPageList(Integer pageNo, Integer pageSize);
 
+
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    boolean saveUser(User user);
+
+
+
 }

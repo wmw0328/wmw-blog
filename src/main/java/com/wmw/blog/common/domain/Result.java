@@ -1,5 +1,6 @@
 package com.wmw.blog.common.domain;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,5 +1,7 @@
 package com.wmw.blog.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -17,6 +19,7 @@ public class User implements Serializable {
      * 主键id
      */
     @ApiModelProperty(value="主键id")
+    @TableId(type= IdType.AUTO)
     private Integer id;
 
     /**
