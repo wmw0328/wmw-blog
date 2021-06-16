@@ -12,10 +12,14 @@ import com.wmw.blog.common.domain.PageList;
 import com.wmw.blog.entity.User;
 import com.wmw.blog.mapper.UserMapper;
 import com.wmw.blog.service.UserService;
+import com.wmw.blog.utils.IdUtil;
+import com.wmw.blog.utils.MD5Util;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,7 +55,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if(userMapper.selectCount(wrapper) > 0){
             return false;
         }
-        userMapper.insert(user);
-        return true;
+        user.setUserId(IdUtil.createUid());
+        user.setStatus(1);
+        user.setRoleId(1);
+        user.setCreateTime(new Date());
+
+        String password = user.getPassword() + user.getUserId();
+        user.setPassword(MD5Util.passwordToMD5(password));
+        int count = userMapper.insert(user);
+        return count > 0;
     }
 }

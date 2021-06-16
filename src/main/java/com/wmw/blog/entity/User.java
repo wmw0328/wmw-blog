@@ -26,7 +26,7 @@ public class User implements Serializable {
      * 用户id
      */
     @ApiModelProperty(value="用户id")
-    private Long userId;
+    private String userId;
 
     /**
      * 用户名

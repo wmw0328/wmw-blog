@@ -41,7 +41,7 @@ public class UserController {
 
     @ApiOperation(" 新增注册用户")
     @PostMapping("saveUser")
-    public Result saveUser(@RequestBody User user){
+    public Result<User> saveUser(@RequestBody User user){
       boolean result = userService.saveUser(user);
       if(!result){
           return ResultUtil.fail("用户已存在");
