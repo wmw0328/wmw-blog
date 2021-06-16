@@ -60,9 +60,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setRoleId(1);
         user.setCreateTime(new Date());
 
-        String password = user.getPassword() + user.getUserId();
+        String password = user.getPassword();
         user.setPassword(MD5Util.passwordToMD5(password));
         int count = userMapper.insert(user);
         return count > 0;
+    }
+
+    @Override
+    public boolean loginUser(User user) {
+        QueryWrapper<User> wrapper = new QueryWrapper();
+        wrapper.eq("user_name",user.getUserName());
+        if(userMapper.selectCount(wrapper) == 0){
+            return false;
+        }
+        wrapper.eq("password",MD5Util.passwordToMD5(user.getPassword()));
+        if(userMapper.selectCount(wrapper) == 0){
+            return false;
+        }
+        return true;
+
+
+
     }
 }

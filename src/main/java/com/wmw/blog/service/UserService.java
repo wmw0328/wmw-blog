@@ -34,6 +34,11 @@ public interface UserService extends IService<User> {
      */
     boolean saveUser(User user);
 
-
+    /**
+     * 用户登录
+     * @param user
+     * @return
+     */
+    boolean loginUser(User user);
 
 }

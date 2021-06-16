@@ -19,10 +19,10 @@ import java.util.List;
  * @Version 1.0
  */
 
-@Api(tags = "用户管理")
+@Api(tags = "后台用户管理")
 @RestController
 @RequestMapping("/admin")
-public class UserController {
+public class AdminUserController {
 
     @Autowired
     private UserService userService;
@@ -39,14 +39,5 @@ public class UserController {
         return userService.getUserPageList(pageNo, pageSize);
     }
 
-    @ApiOperation(" 新增注册用户")
-    @PostMapping("saveUser")
-    public Result<User> saveUser(@RequestBody User user){
-      boolean result = userService.saveUser(user);
-      if(!result){
-          return ResultUtil.fail("用户已存在");
-      }
-      return ResultUtil.success();
-    }
 
 }
